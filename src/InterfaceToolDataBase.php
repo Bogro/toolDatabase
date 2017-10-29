@@ -11,15 +11,44 @@ namespace ToolDataBase;
 
 interface InterfaceToolDataBase
 {
-    public function query();
+    /**
+     * @param $statement
+     * @return mixed
+     */
+    public function query($statement);
 
-    public function queryAll();
+    /**
+     * @param $statement
+     * @return mixed
+     */
+    public function queryAll($statement);
 
-    public function prepare();
+    /**
+     * @param $statement
+     * @param $attributes
+     * @param bool $one
+     * @return mixed
+     */
+    public function prepare($statement, $attributes, $one = true);
 
-    public function insert();
+    /**
+     * @param $statement
+     * @param $attributes
+     * @return mixed
+     */
+    public function insert($statement, $attributes);
 
-    public function update();
+    /**
+     * @param $statement
+     * @param $attributes
+     * @return mixed
+     */
+    public function update($statement, $attributes);
 
-    public function delete();
+    /**
+     * @param $statement
+     * @param $attributes
+     * @return mixed
+     */
+    public function delete($statement, $attributes);
 }

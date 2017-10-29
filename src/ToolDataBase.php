@@ -9,9 +9,10 @@
 namespace ToolDataBase;
 
 use \PDO;
+use ToolDataBase\InterfaceToolDataBase;
 
 
-class ToolDataBase
+class ToolDataBase implements InterfaceToolDataBase
 {
     private  $db_name;
     private  $db_user;
@@ -90,6 +91,7 @@ class ToolDataBase
     /**
      * @param $statement
      * @param $attributes
+     * @return mixed|void
      */
     public function insert($statement, $attributes){
         $req = $this->getPDO()->prepare($statement);
@@ -99,6 +101,7 @@ class ToolDataBase
     /**
      * @param $statement
      * @param $attributes
+     * @return mixed|void
      */
     public function update($statement, $attributes){
         $req = $this->getPDO()->prepare($statement);
@@ -109,6 +112,7 @@ class ToolDataBase
     /**
      * @param $statement
      * @param $attributes
+     * @return mixed|void
      */
     public function delete($statement, $attributes){
 
