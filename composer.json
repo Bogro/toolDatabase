@@ -1,0 +1,13 @@
+{
+    "name": "bogro/tools-database",
+    "type": "composer-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Christian Bogro",
+            "email": "bogrolcr@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
