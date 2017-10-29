@@ -49,6 +49,12 @@ class ToolDataBase implements InterfaceToolDataBase
         return $this->pdo;
     }
 
+    private function isArray($var){
+        if (is_array($var)){
+            throw new ExceptionDataBase('');
+        }
+    }
+
     /**
      * @param $statement
      * @return mixed
@@ -76,16 +82,11 @@ class ToolDataBase implements InterfaceToolDataBase
     public function prepare($statement, $attributes, $one = true){
 
         $req = $this->getPDO()->prepare($statement);
-
+        $this->isArray($attributes);
         $req->execute($attributes);
 
-        if($one){
-            $datas = $req->fetch();
-        } else {
-            $datas = $req->fetchAll();
-        }
+        return $one ? $req->fetch() : $req->fetchAll();
 
-        return $datas;
     }
 
     /**
@@ -95,6 +96,7 @@ class ToolDataBase implements InterfaceToolDataBase
      */
     public function insert($statement, $attributes){
         $req = $this->getPDO()->prepare($statement);
+        $this->isArray($attributes);
         $req->execute($attributes);
     }
 
@@ -105,6 +107,7 @@ class ToolDataBase implements InterfaceToolDataBase
      */
     public function update($statement, $attributes){
         $req = $this->getPDO()->prepare($statement);
+        $this->isArray($attributes);
         $req->execute($attributes);
     }
 
@@ -117,6 +120,7 @@ class ToolDataBase implements InterfaceToolDataBase
     public function delete($statement, $attributes){
 
         $req = $this->getPDO()->prepare($statement);
+        $this->isArray($attributes);
         $req->execute($attributes);
     }
 }
