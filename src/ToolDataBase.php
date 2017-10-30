@@ -22,17 +22,21 @@ class ToolDataBase implements InterfaceToolDataBase
 
     /**
      * DataBase constructor.
-     * @param $db_name
-     * @param string $db_pass
-     * @param string $db_host
-     * @param string $db_user
+     * @param $db_access
+     * @internal param $db_name
+     * @internal param string $db_pass
+     * @internal param string $db_host
+     * @internal param string $db_user
      */
-    public function __construct($db_name, $db_pass = '', $db_host = 'localhost', $db_user = 'root')
+    public function __construct($db_access)
     {
-        $this->db_name = $db_name;
-        $this->db_user = $db_user;
-        $this->db_pass = $db_pass;
-        $this->db_host = $db_host;
+
+        $this->isArray($db_access);
+
+        $this->db_name = $db_access['db_name'];
+        $this->db_user = $db_access['db_user'];
+        $this->db_pass = $db_access['db_pass'];
+        $this->db_host = $db_access['db_host'];
     }
 
     /**
@@ -42,6 +46,7 @@ class ToolDataBase implements InterfaceToolDataBase
     {
         if ($this->pdo === NULL){
             $bdd = new PDO('mysql:host=' . $this->db_host . ';dbname=' . $this->db_name . '', $this->db_user, $this->db_pass);
+            $bdd->exec("SET CHARACTER SET utf8");
             $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->pdo = $bdd;
         }
@@ -50,8 +55,8 @@ class ToolDataBase implements InterfaceToolDataBase
     }
 
     private function isArray($var){
-        if (is_array($var)){
-            throw new ExceptionDataBase('');
+        if (!is_array($var)){
+            throw new ExceptionDataBase('Votre variable n\'est pas un tableau');
         }
     }
 
@@ -123,4 +128,5 @@ class ToolDataBase implements InterfaceToolDataBase
         $this->isArray($attributes);
         $req->execute($attributes);
     }
+
 }
