@@ -3,6 +3,8 @@
 require_once "../vendor/autoload.php";
 
 use ToolDataBase\DB;
+use ToolDataBase\ModelData;
+
 $db_access = [
     'db_name' => 'test',
     'db_pass' => '',
@@ -12,6 +14,8 @@ $db_access = [
 
 $db = new ToolDataBase\ToolDataBase($db_access);
 
-$prod = $db->queryAll('SELECT * FROM product');
+$prod = new ModelData($db);
 
-DB::debug($prod);
+$test = $prod->select('product')->column('*');
+
+DB::debug($test);
