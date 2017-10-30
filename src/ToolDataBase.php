@@ -100,8 +100,8 @@ class ToolDataBase implements InterfaceToolDataBase
      * @return mixed|void
      */
     public function insert($statement, $attributes){
-        $req = $this->getPDO()->prepare($statement);
         $this->isArray($attributes);
+        $req = $this->getPDO()->prepare($statement);
         $req->execute($attributes);
     }
 
