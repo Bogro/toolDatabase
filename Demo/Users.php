@@ -8,7 +8,7 @@
 
 use ToolDataBase\ModelData;
 
-class Product extends ModelData
+class Users extends ModelData
 {
     protected $statement;
 

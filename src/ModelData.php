@@ -71,7 +71,7 @@ class ModelData
             throw new ExceptionDataBase('You value is not string');
         }
 
-        $this->statement = 'INSERT INTO ' . $this->table . ' (' . $this->inserte . ') VALUES (' . $this->value . ')';
+        $this->statement = 'INSERT INTO ' . $this->table . ' (' . $this->inserte . ', creat_at) VALUES (' . $this->value . ', NOW())';
         //var_dump( $this->statement); die();
         return $this->dataBase->insert($this->statement, $insert);
 

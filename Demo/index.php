@@ -14,10 +14,10 @@ $db_access = [
 
 $db = new ToolDataBase\ToolDataBase($db_access);
 
-require_once "Product.php";
+require_once "Users.php";
 
-$prod = new Product($db);
+$prod = new Users($db);
 
-$test = $prod->creat(['name' => 'bogro lobognon', 'age' => '26']);
+$test = $prod->creat(['bogro lobognon', '26']);
 
 DB::debug($test);
