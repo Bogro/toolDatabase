@@ -14,8 +14,10 @@ $db_access = [
 
 $db = new ToolDataBase\ToolDataBase($db_access);
 
-$prod = new ModelData($db);
+require_once "Users.php";
 
-$test = $prod->select('product')->column('*');
+$prod = new Users($db);
+
+$test = $prod->creat(['bogro lobognon', '26']);
 
 DB::debug($test);
