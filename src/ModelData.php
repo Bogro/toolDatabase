@@ -55,7 +55,7 @@ class ModelData
 
         }
 
-        return $this->dataBase->queryAll($this->statement);
+        return $this;
     }
 
 
@@ -124,6 +124,13 @@ class ModelData
         $this->statement = 'UPDATE ' . $this->table . ' SET ' . rtrim($req, ',') . ' ' . $this->statement . ' ';
 
         return $this->dataBase->prepare($this->statement, $update);
+    }
+
+    public function delete(){
+
+        $this->statement = 'DELETE FROM ' . $this->table . ' ' . $this->statement;
+
+        return $this->dataBase->prepare($this->statement);
     }
 
     /**

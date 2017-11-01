@@ -18,6 +18,6 @@ require_once "Users.php";
 
 $prod = new Users($db);
 
-$test = $prod->select();
+$test = $prod->rightJoin('animal', 'id', '=', 'id_user')->select()->get();
 
 DB::debug($test);

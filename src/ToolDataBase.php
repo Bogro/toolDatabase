@@ -99,7 +99,7 @@ class ToolDataBase implements InterfaceToolDataBase
      * @param $attributes
      * @return mixed|void
      */
-    public function prepare($statement, $attributes){
+    public function prepare($statement, $attributes = []){
         $this->isArray($attributes);
         $req = $this->getPDO()->prepare($statement);
         $req->execute($attributes);
