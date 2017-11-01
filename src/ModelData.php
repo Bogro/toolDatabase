@@ -11,6 +11,7 @@ namespace ToolDataBase;
 
 class ModelData
 {
+    use Model;
     /**
      * @var ToolDataBase
      */
@@ -36,24 +37,49 @@ class ModelData
     }
 
     /**
-     * @param $table
+     * @param array $column
      * @return $this
-     * @throws ExceptionDataBase
+     * @internal param $table
      */
-    public function select($table = ""){
+    public function select($column = []){
 
-        if (!empty($table)){
-            $this->table = $table;
+        if (!empty($column)){
+
+            $column = $this->column($column);
+
+            $this->statement = 'SELECT ' . $column . ' FROM ' . $this->table . ' ' . $this->statement;
+
+        } else {
+
+            $this->statement = 'SELECT * FROM ' . $this->table . ' ' . $this->statement;
+
         }
 
-        if (empty($this->table) OR !is_string($this->table)){
-            throw new ExceptionDataBase('You value is not string');
-        }
-
-        $this->statement = 'SELECT * FROM ' . $this->table;
-
-        return $this;
+        return $this->dataBase->queryAll($this->statement);
     }
+
+
+    /**
+     * @param array $column
+     * @return mixed
+     */
+    public function count($column = []){
+
+        if (!empty($column)){
+
+            $column = $this->column($column);
+
+            $this->statement = 'SELECT COUNT(' . $column . ') FROM ' . $this->table . ' ' . $this->statement;
+
+        } else {
+
+            $this->statement = 'SELECT COUNT(*) FROM ' . $this->table . ' ' . $this->statement;
+
+        }
+
+        return $this->dataBase->query($this->statement)[0];
+    }
+
 
     /**
      * @param array $insert
@@ -68,40 +94,53 @@ class ModelData
         }
 
         if (empty($insert) OR !is_array($insert)){
-            throw new ExceptionDataBase('You value is not string');
+            throw new ExceptionDataBase('You value is not array');
         }
 
         $this->statement = 'INSERT INTO ' . $this->table . ' (' . $this->inserte . ', creat_at) VALUES (' . $this->value . ', NOW())';
-        //var_dump( $this->statement); die();
-        return $this->dataBase->insert($this->statement, $insert);
 
+        return $this->dataBase->prepare($this->statement, $insert);
+
+    }
+
+
+    /**
+     * @param array $update
+     * @return mixed|void
+     * @throws ExceptionDataBase
+     */
+    public function update(array $update){
+
+        if (empty($update) OR !is_array($update)){
+            throw new ExceptionDataBase('You value is not array');
+        }
+
+        $req = '';
+
+        foreach ($update as $key => $value) {
+            $req = $req . $key . ' = :' . $key . ',';
+        }
+
+        $this->statement = 'UPDATE ' . $this->table . ' SET ' . rtrim($req, ',') . ' ' . $this->statement . ' ';
+
+        return $this->dataBase->prepare($this->statement, $update);
     }
 
     /**
      * @param $column
+     * @param $operator
+     * @param $value
      * @return $this
-     * @throws ExceptionDataBase
      */
-    public function column($column){
+    public function where($column, $operator, $value){
 
-        if (empty($column) OR is_array($column)){
-            throw new ExceptionDataBase('You value is not define');
-        }
+        $this->statement = $this->statement . ' WHERE ' . $column . ' ' . $operator . ' ' . $value;
 
-        $column = ' ' . $column . ' ';
-
-        $this->statement = str_replace('*', $column, $this->statement);
-
-        return $this->dataBase->queryAll($this->statement);
+        return $this;
     }
 
-    /**
-     * @return array|mixed
-     */
-    public function execut(){
 
-        return $this->dataBase->queryAll($this->statement);
 
-    }
+
 
 }

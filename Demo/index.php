@@ -18,6 +18,6 @@ require_once "Users.php";
 
 $prod = new Users($db);
 
-$test = $prod->creat(['bogro lobognon', '26']);
+$test = $prod->select();
 
 DB::debug($test);

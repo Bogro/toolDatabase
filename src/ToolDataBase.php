@@ -84,7 +84,7 @@ class ToolDataBase implements InterfaceToolDataBase
      * @param bool $one
      * @return array|mixed
      */
-    public function prepare($statement, $attributes, $one = true){
+    public function insert($statement, $attributes, $one = true){
 
         $req = $this->getPDO()->prepare($statement);
         $this->isArray($attributes);
@@ -99,33 +99,9 @@ class ToolDataBase implements InterfaceToolDataBase
      * @param $attributes
      * @return mixed|void
      */
-    public function insert($statement, $attributes){
+    public function prepare($statement, $attributes){
         $this->isArray($attributes);
         $req = $this->getPDO()->prepare($statement);
-        $req->execute($attributes);
-    }
-
-    /**
-     * @param $statement
-     * @param $attributes
-     * @return mixed|void
-     */
-    public function update($statement, $attributes){
-        $req = $this->getPDO()->prepare($statement);
-        $this->isArray($attributes);
-        $req->execute($attributes);
-    }
-
-
-    /**
-     * @param $statement
-     * @param $attributes
-     * @return mixed|void
-     */
-    public function delete($statement, $attributes){
-
-        $req = $this->getPDO()->prepare($statement);
-        $this->isArray($attributes);
         $req->execute($attributes);
     }
 

@@ -29,26 +29,13 @@ interface InterfaceToolDataBase
      * @param bool $one
      * @return mixed
      */
-    public function prepare($statement, $attributes, $one = true);
+    public function insert($statement, $attributes, $one = true);
 
     /**
      * @param $statement
      * @param $attributes
      * @return mixed
      */
-    public function insert($statement, $attributes);
+    public function prepare($statement, $attributes);
 
-    /**
-     * @param $statement
-     * @param $attributes
-     * @return mixed
-     */
-    public function update($statement, $attributes);
-
-    /**
-     * @param $statement
-     * @param $attributes
-     * @return mixed
-     */
-    public function delete($statement, $attributes);
 }
