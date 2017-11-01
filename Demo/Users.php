@@ -14,6 +14,7 @@ class Users extends ModelData
 
     protected $table = "users";
 
+    /*Les champs ou les actions peuvent se produit*/
     protected $inserte = 'name, age';
 
     protected $value = ' ? , ? ';

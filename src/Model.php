@@ -125,6 +125,6 @@ trait Model
     public function getAll(){
 
         return $this->dataBase->queryAll($this->statement);
-        
+
     }
 }

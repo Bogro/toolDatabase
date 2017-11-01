@@ -12,6 +12,7 @@ namespace ToolDataBase;
 class ModelData
 {
     use Model;
+
     /**
      * @var ToolDataBase
      */
