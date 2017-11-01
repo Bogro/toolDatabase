@@ -133,21 +133,6 @@ class ModelData
         return $this->dataBase->prepare($this->statement);
     }
 
-    /**
-     * @param $column
-     * @param $operator
-     * @param $value
-     * @return $this
-     */
-    public function where($column, $operator, $value){
-
-        $this->statement = $this->statement . ' WHERE ' . $column . ' ' . $operator . ' ' . $value;
-
-        return $this;
-    }
-
-
-
 
 
 }

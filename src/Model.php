@@ -11,6 +11,20 @@ namespace ToolDataBase;
 
 trait Model
 {
+
+    /**
+     * @param $column
+     * @param $operator
+     * @param $value
+     * @return $this
+     */
+    public function where($column, $operator, $value){
+
+        $this->statement = $this->statement . ' WHERE ' . $column . ' ' . $operator . ' ' . $value;
+
+        return $this;
+    }
+
     /**
      * @param $column
      * @return $this
@@ -56,6 +70,13 @@ trait Model
     }
 
 
+    /**
+     * @param $join
+     * @param $value1
+     * @param $operator
+     * @param $value2
+     * @return $this
+     */
     public function join($join, $value1, $operator, $value2){
 
         $this->statement = $this->statement . 'INNER JOIN ' . $join . ' ON ' . $this->table . '.' . $value1 . ' ' . $operator . ' ' . $join . '.' . $value2 . ' ';
@@ -63,26 +84,47 @@ trait Model
         return $this;
     }
 
+    /**
+     * @param $join
+     * @param $value1
+     * @param $operator
+     * @param $value2
+     * @return $this
+     */
     public function leftJoin($join, $value1, $operator, $value2){
         $this->statement = $this->statement . 'LEFT JOIN ' . $join . ' ON ' . $this->table . '.' . $value1 . ' ' . $operator . ' ' . $join . '.' . $value2 . ' ';
 
         return $this;
     }
 
+    /**
+     * @param $join
+     * @param $value1
+     * @param $operator
+     * @param $value2
+     * @return $this
+     */
     public function rightJoin($join, $value1, $operator, $value2){
         $this->statement = $this->statement . 'RIGHT JOIN ' . $join . ' ON ' . $this->table . '.' . $value1 . ' ' . $operator . ' ' . $join . '.' . $value2 . ' ';
 
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function get(){
 
         return $this->dataBase->query($this->statement);
 
     }
 
+    /**
+     * @return mixed
+     */
     public function getAll(){
-        //var_dump($this->statement);die();
+
         return $this->dataBase->queryAll($this->statement);
+        
     }
 }
