@@ -3,7 +3,6 @@
 require_once "../vendor/autoload.php";
 
 use ToolDataBase\DB;
-use ToolDataBase\ModelData;
 
 $db_access = [
     'db_name' => 'test',
