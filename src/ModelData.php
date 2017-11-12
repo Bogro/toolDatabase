@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: LENOVO
- * Date: 30/10/2017
- * Time: 12:02
- */
+
 
 namespace ToolDataBase;
 
@@ -84,11 +79,12 @@ class ModelData
 
     /**
      * @param array $insert
+     * @param bool $date
      * @return $this
      * @throws ExceptionDataBase
      * @internal param $table
      */
-    public function creat($insert  = []){
+    public function creat($insert  = [], $date = TRUE){
 
         if (!empty($table)){
             $this->table = $table;
@@ -98,7 +94,12 @@ class ModelData
             throw new ExceptionDataBase('You value is not array');
         }
 
-        $this->statement = 'INSERT INTO ' . $this->table . ' (' . $this->inserte . ', creat_at) VALUES (' . $this->value . ', NOW())';
+        if ($date){
+            $this->statement = 'INSERT INTO ' . $this->table . ' (' . $this->column($this->inserte) . ', creat_at) VALUES (' . $this->value . ', NOW())';
+        } else {
+            $this->statement = 'INSERT INTO ' . $this->table . ' (' . $this->column($this->inserte) . ') VALUES (' . $this->value . ')';
+        }
+
 
         return $this->dataBase->prepare($this->statement, $insert);
 
@@ -107,13 +108,18 @@ class ModelData
 
     /**
      * @param array $update
+     * @param bool $date
      * @return mixed|void
      * @throws ExceptionDataBase
      */
-    public function update(array $update){
+    public function update(array $update, $date = TRUE){
 
         if (empty($update) OR !is_array($update)){
             throw new ExceptionDataBase('You value is not array');
+        }
+
+        if (!is_bool($date)){
+            throw new ExceptionDataBase('You value is not bool');
         }
 
         $req = '';
@@ -122,7 +128,18 @@ class ModelData
             $req = $req . $key . ' = :' . $key . ',';
         }
 
-        $this->statement = 'UPDATE ' . $this->table . ' SET ' . rtrim($req, ',') . ' ' . $this->statement . ' ';
+        if ($date){
+
+            $this->statement = 'UPDATE ' . $this->table . ' SET ' . rtrim($req, ',') . ', update_at = :update_at ' . $this->statement . ' ';
+
+            $update = array_merge($update, ['update_at' => date("Y-m-d H:i:s")]);
+
+
+        } else {
+            $this->statement = 'UPDATE ' . $this->table . ' SET ' . rtrim($req, ',') . ' ' . $this->statement . ' ';
+        }
+
+
 
         return $this->dataBase->prepare($this->statement, $update);
     }

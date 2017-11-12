@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: LENOVO
- * Date: 30/10/2017
- * Time: 09:22
- */
+
 
 namespace ToolDataBase;
 

@@ -13,10 +13,10 @@ $db_access = [
 
 $db = new ToolDataBase\ToolDataBase($db_access);
 
-require_once "Users.php";
+//require_once "Users.php";
 
-$prod = new Users($db);
+$prod = new Demo\Users($db);
 
-$test = $prod->rightJoin('animal', 'id', '=', 'id_user')->select()->get();
+$test = $prod->where('id', '=', '1')->update(['name' => 'Rome BOGRO']);
 
 DB::debug($test);
