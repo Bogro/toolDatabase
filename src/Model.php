@@ -104,6 +104,11 @@ trait Model
         return $this;
     }
 
+
+    public function find($value){
+        
+    }
+
     /**
      * @return mixed
      */
