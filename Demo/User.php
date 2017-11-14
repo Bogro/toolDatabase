@@ -1,16 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: LENOVO
- * Date: 30/10/2017
- * Time: 15:44
- */
+
 namespace Demo;
 
+use ToolDataBase\Table;
 use ToolDataBase\ModelData;
 use ToolDataBase\RelationModel;
 
-class Users extends ModelData
+class User extends ModelData implements Table
 {
     use RelationModel;
 
@@ -22,6 +18,8 @@ class Users extends ModelData
     protected $inserte = ['name', 'age'];
 
     protected $value = ' ? , ? ';
+
+    protected $relation = 'Animal';
 
 
 }

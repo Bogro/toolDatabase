@@ -9,10 +9,14 @@
 namespace Demo;
 
 
+use ToolDataBase\Table;
 use ToolDataBase\ModelData;
+use ToolDataBase\RelationModel;
 
-class Animal extends ModelData
+class Animal extends ModelData implements Table
 {
+    use RelationModel;
+
     protected $statement;
 
     protected $table = "animal";

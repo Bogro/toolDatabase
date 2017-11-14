@@ -13,10 +13,8 @@ $db_access = [
 
 $db = new ToolDataBase\ToolDataBase($db_access);
 
-//require_once "Users.php";
+$user = new Demo\User($db);
 
-$prod = new Demo\Users($db);
-
-$test = $prod->where('id', '=', '1')->update(['name' => 'Rome BOGRO']);
+$test = $user->relationOneAsMany(new \Demo\Animal($db));
 
 DB::debug($test);
