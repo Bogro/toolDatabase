@@ -152,5 +152,24 @@ class ModelData
     }
 
 
+    /**
+     * @return mixed
+     */
+    public function get(){
+
+        return $this->dataBase->query($this->statement);
+
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAll(){
+
+        return $this->dataBase->queryAll($this->statement);
+
+    }
+
+
 
 }

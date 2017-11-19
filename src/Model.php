@@ -14,7 +14,7 @@ trait Model
      */
     public function where($column, $operator, $value){
 
-        $this->statement = $this->statement . ' WHERE ' . $column . ' ' . $operator . ' ' . $value;
+        $this->statement .= ' WHERE ' . $column . ' ' . $operator . ' ' . $value;
 
         return $this;
     }
@@ -49,7 +49,7 @@ trait Model
      * @internal param $value
      */
     public function order($column , $order){
-        $this->statement = $this->statement . ' ORDER BY ' . $column . ' ' . $order . ' ';
+        $this->statement .= ' ORDER BY ' . $column . ' ' . $order . ' ';
         return $this;
     }
 
@@ -59,7 +59,7 @@ trait Model
      * @return $this
      */
     public function limit($start, $end){
-        $this->statement = $this->statement . ' LIMIT ' . $start . ', ' . $end . ' ';
+        $this->statement .= ' LIMIT ' . $start . ', ' . $end . ' ';
         return $this;
     }
 
@@ -73,7 +73,7 @@ trait Model
      */
     public function join($join, $value1, $operator, $value2){
 
-        $this->statement = $this->statement . 'INNER JOIN ' . $join . ' ON ' . $this->table . '.' . $value1 . ' ' . $operator . ' ' . $join . '.' . $value2 . ' ';
+        $this->statement .= 'INNER JOIN ' . $join . ' ON ' . $this->table . '.' . $value1 . ' ' . $operator . ' ' . $join . '.' . $value2 . ' ';
 
         return $this;
     }
@@ -86,7 +86,7 @@ trait Model
      * @return $this
      */
     public function leftJoin($join, $value1, $operator, $value2){
-        $this->statement = $this->statement . 'LEFT JOIN ' . $join . ' ON ' . $this->table . '.' . $value1 . ' ' . $operator . ' ' . $join . '.' . $value2 . ' ';
+        $this->statement .= 'LEFT JOIN ' . $join . ' ON ' . $this->table . '.' . $value1 . ' ' . $operator . ' ' . $join . '.' . $value2 . ' ';
 
         return $this;
     }
@@ -99,31 +99,82 @@ trait Model
      * @return $this
      */
     public function rightJoin($join, $value1, $operator, $value2){
-        $this->statement = $this->statement . 'RIGHT JOIN ' . $join . ' ON ' . $this->table . '.' . $value1 . ' ' . $operator . ' ' . $join . '.' . $value2 . ' ';
+        $this->statement .= 'RIGHT JOIN ' . $join . ' ON ' . $this->table . '.' . $value1 . ' ' . $operator . ' ' . $join . '.' . $value2 . ' ';
 
         return $this;
     }
 
 
-    public function find($value){
-        
+    /**
+     * @param $colonne
+     * @param $value
+     * @return mixed
+     */
+    public function find($colonne, $value){
+
+        $this->statement .= 'WHERE ' . $colonne . ' LIKE \'' . $value . '\'';
+
+        if (empty($this->getAll())){
+            return false;
+        }
+
+        return $this->getAll();
     }
 
     /**
+     * @param $value
      * @return mixed
      */
-    public function get(){
+    public function findId($value){
 
-        return $this->dataBase->query($this->statement);
+        if (!is_integer($value)){
+            throw new ExceptionDataBase('You value is not integer');
+        }
 
+        $this->statement .= 'WHERE id LIKE \'' . $value . '\'';
+
+        if (empty($this->getAll())){
+            return false;
+        }
+
+        return $this->getAll();
     }
+
 
     /**
+     * @param $colonne
      * @return mixed
      */
-    public function getAll(){
+    public function isNull($colonne){
 
-        return $this->dataBase->queryAll($this->statement);
+        $this->statement .= 'WHERE ' . $colonne . ' IS NULL ';
 
+        return $this->getAll();
     }
+
+
+    /**
+     * @param $colonne
+     * @return mixed
+     */
+    public function isNotNull($colonne){
+
+        $this->statement .= 'WHERE ' . $colonne . ' IS NOT NULL ';
+
+        return $this->getAll();
+    }
+
+
+    public function replace($value, $replace, $colonne){
+        //var_dump($this->select()->find($colonne, $value)); die();
+        if (!$this->select()->find($colonne, $value)){
+            throw new ExceptionDataBase('You value is not exist');
+        }
+
+        $this->statement = 'UPDATE ' . $this->table . ' SET ' . $colonne . ' = REPLACE(' . $colonne . ', \'' . $value . '\', \'' . $replace . '\') WHERE ' . $colonne . ' LIKE \'%' . $value . '%\' ';
+        #return $this->statement;
+        return $this->dataBase->prepare($this->statement);
+    }
+
+
 }

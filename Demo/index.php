@@ -15,6 +15,6 @@ $db = new ToolDataBase\ToolDataBase($db_access);
 
 $user = new Demo\User($db);
 
-$test = $user->relationOneAsMany(new \Demo\Animal($db));
+$users = $user->replace('bogro', 'Christ', 'name');
 
-DB::debug($test);
+DB::debug($users);
