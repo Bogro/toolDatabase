@@ -124,6 +124,7 @@ trait Model
     /**
      * @param $value
      * @return mixed
+     * @throws ExceptionDataBase
      */
     public function findId($value){
 
