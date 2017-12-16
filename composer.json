@@ -1,6 +1,11 @@
 {
     "name": "bogro/tools-database",
-    "type": "composer-plugin",
+    "type": "library",
+    "keywords":[
+        "Database",
+        "PDO",
+        "mysql"
+    ],
     "license": "MIT",
     "authors": [
         {
