@@ -8,7 +8,6 @@ use ToolDataBase\RelationModel;
 
 class User extends ModelData implements Table
 {
-    use RelationModel;
 
     protected $statement;
 
@@ -19,7 +18,7 @@ class User extends ModelData implements Table
 
     protected $value = ' ? , ? ';
 
-    protected $relation = 'Animal';
+    protected $relation = 'animal';
 
 
 }

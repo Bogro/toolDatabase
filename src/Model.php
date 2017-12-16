@@ -166,14 +166,21 @@ trait Model
     }
 
 
+    /**
+     * @param $value
+     * @param $replace
+     * @param $colonne
+     * @return mixed
+     * @throws ExceptionDataBase
+     */
     public function replace($value, $replace, $colonne){
-        //var_dump($this->select()->find($colonne, $value)); die();
+        
         if (!$this->select()->find($colonne, $value)){
             throw new ExceptionDataBase('You value is not exist');
         }
 
         $this->statement = 'UPDATE ' . $this->table . ' SET ' . $colonne . ' = REPLACE(' . $colonne . ', \'' . $value . '\', \'' . $replace . '\') WHERE ' . $colonne . ' LIKE \'%' . $value . '%\' ';
-        #return $this->statement;
+        
         return $this->dataBase->prepare($this->statement);
     }
 

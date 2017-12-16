@@ -32,4 +32,10 @@ interface InterfaceToolDataBase
      */
     public function prepare($statement, $attributes);
 
+    /**
+     * @param $statement
+     * @return mixed
+     */
+    public function getStatement($statement);
+
 }

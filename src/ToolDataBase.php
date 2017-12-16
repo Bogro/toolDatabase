@@ -9,6 +9,7 @@ use ToolDataBase\InterfaceToolDataBase;
 
 class ToolDataBase implements InterfaceToolDataBase
 {
+    private $statement;
     private  $db_name;
     private  $db_user;
     private  $db_pass;
@@ -99,5 +100,15 @@ class ToolDataBase implements InterfaceToolDataBase
         $req = $this->getPDO()->prepare($statement);
         $req->execute($attributes);
     }
+
+    /**
+     * @param $statement
+     * @return array
+     */
+    public function getStatement($statement){
+        $this->statement = $statement;
+        return $this->getPDO()->query($this->statement)->fetchAll();
+    }
+
 
 }

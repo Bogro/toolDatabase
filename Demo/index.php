@@ -15,6 +15,6 @@ $db = new ToolDataBase\ToolDataBase($db_access);
 
 $user = new Demo\User($db);
 
-$users = $user->replace('bogro', 'Christ', 'name');
+$users = $user->relationOneAsMany('animal', ['users.name', 'animal.nom'])->where('users.id', '=', '5')->get();
 
 DB::debug($users);

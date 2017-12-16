@@ -8,6 +8,8 @@ class ModelData
 {
     use Model;
 
+    use RelationModel;
+
     /**
      * @var ToolDataBase
      */
@@ -21,7 +23,10 @@ class ModelData
 
     protected $value;
 
+    protected $relation;
+
     protected $data;
+
 
     /**
      * ModelData constructor.
@@ -134,12 +139,9 @@ class ModelData
 
             $update = array_merge($update, ['update_at' => date("Y-m-d H:i:s")]);
 
-
         } else {
             $this->statement = 'UPDATE ' . $this->table . ' SET ' . rtrim($req, ',') . ' ' . $this->statement . ' ';
         }
-
-
 
         return $this->dataBase->prepare($this->statement, $update);
     }
@@ -154,11 +156,11 @@ class ModelData
 
     /**
      * @return mixed
+     * @throws ExceptionDataBase
      */
     public function get(){
-
+        if(!isset($this)){ throw  new ExceptionDataBase('Error 20012: violation'); }
         return $this->dataBase->query($this->statement);
-
     }
 
     /**
@@ -166,10 +168,14 @@ class ModelData
      */
     public function getAll(){
 
-        return $this->dataBase->queryAll($this->statement);
+        if(isset($this) AND !empty($this->statement)){
+            return $this->dataBase->queryAll($this->statement);
+        }
+
+        $statement = 'SELECT * FROM ' . $this->table;
+
+        return $this->dataBase->queryAll($statement);
 
     }
-
-
 
 }
