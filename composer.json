@@ -1,6 +1,8 @@
 {
     "name": "bogro/tools-database",
     "type": "library",
+    "version": "0.1",
+    "prefer-stable": true,
     "keywords":[
         "Database",
         "PDO",
