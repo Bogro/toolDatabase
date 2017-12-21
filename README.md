@@ -53,3 +53,17 @@ C'est le fichier d'entrer de l'application demo.
 
 Utilisation
 -------------
+
+Pour commencer, il faut faire appel au namaspace `ToolDataBase\`
+
+Initialise la class `ToolDataBase\ToolDataBase`
+
+```php
+    $db = new ToolDataBase\ToolDataBase(['db_name' => 'nom', 'db_pass' => 'mot de passe', 'db_host' => 'adress', 'db_user' => 'utilisateur'];);
+```
+
+On injecte cette instance de base de donnée dans la class qui correspond à une table dans la base de donnée
+
+```php
+    $user = new User($db);
+```
