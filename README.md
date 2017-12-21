@@ -42,15 +42,15 @@ Dans se dossier il existe 4 fichiers.
 - User.php
 - Index.php
 
-###.htaccess
+_.htaccess_
 
 Permet de rédiriger toutes le url vers le fichier d'entrer qui est `index.php`
 
-###Animal.php / User.php
+_Animal.php / User.php_
 
 C'est un fichier php qui conrrespond à une table dans la base de donnée.
 
-###index.php
+_index.php_
 
 C'est le fichier d'entrer de l'application demo.
 
