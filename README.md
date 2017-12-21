@@ -25,6 +25,9 @@ Prérequis / Exigences
 
 Installation
 ------------
+Pour installer executer dans votre CMD ou Terminal
+
+`composer require bogro/tools-database`
 
 Demo
 ----
@@ -39,15 +42,15 @@ Dans se dossier il existe 4 fichiers.
 - User.php
 - Index.php
 
-_.htaccess_
+###.htaccess
 
 Permet de rédiriger toutes le url vers le fichier d'entrer qui est `index.php`
 
-_Animal.php / User.php_
+###Animal.php / User.php
 
 C'est un fichier php qui conrrespond à une table dans la base de donnée.
 
-_index.php_
+###index.php
 
 C'est le fichier d'entrer de l'application demo.
 
@@ -83,4 +86,4 @@ Tous deux renvois le même resultat. il execute la requette
 ```
 
 La méthode `select()` prent en paramètre un `array` qui contient les colonnes sible
-Si le paramètre de `select()` n'est pas définir ou est null est equale à un `*` c'est à dire toutes les colonnes sont selectionnées.
+Si le paramètre de `select()` n'est pas définir ou est null alors c'est toutes les colonnes qui sérrons selectionnées `*`.
