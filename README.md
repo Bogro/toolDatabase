@@ -67,3 +67,20 @@ On injecte cette instance de base de donnée dans la class qui correspond à une
 ```php
     $user = new User($db);
 ```
+
+On peut maintenent faire des opérations SQL sur la class `User` avec des méthodes. 
+```php
+    $user->getAll();
+```
+Est equivaut à 
+```php
+    $user->select()->get();
+```
+
+Tous deux renvois le même resultat. il execute la requette 
+```mysql
+   SELECT * FROM users
+```
+
+La méthode `select()` prent en paramètre un `array` qui contient les colonnes sible
+Si le paramètre de `select()` n'est pas définir ou est null est equale à un `*` c'est à dire toutes les colonnes sont selectionnées.
