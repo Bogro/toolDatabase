@@ -6,17 +6,18 @@ Un outil PHP léger, simple, et orienté objet.
 A propos
 --------
 
-"Tools database" est un outil développé pour apporter un aide aux développeurs.
-Il est léger, simple, facile à comprendre, et orienté objet. Cet outil permette de connecter votre application php et votre base de donnée MySql.
+"Tools database" est un outil développé pour apporter une aide aux développeurs.
+Il est léger, simple, facile à comprendre, et orienté objet. Cet outil permette de connecter votre application `PHP` et votre base de données `MySQL`.
+Avec ses differents méthodes vous n'êtes plus forcé d'écrire du code `MySQL` pour vos requêtes, `Tools Database` le ferra pour vous.
 
 
 Caracteristique
 ---------------
 
-- Suporte injection
+- Supporte l'injection
 - Utilise PDO
 - Structure MVC
-- Gestion complet des actions pour interagie avec la base de donnée
+- Gestion complète des actions pour interagir avec la base de données
 
 Prérequis / Exigences
 ---------------------
@@ -25,17 +26,17 @@ Prérequis / Exigences
 
 Installation
 ------------
-Pour installer executer dans votre CMD ou Terminal
+Pour installer exécuter dans votre CMD ou Terminal
 
 `composer require bogro/tools-database`
 
 Demo
 ----
 
-La demo est dans le dossier `Demo/` . Dans l'optique de vous faire comprendre le fonctionnement de l'outile,
+La démo est dans le dossier `Demo/` . Dans l'optique de vous faire comprendre le fonctionnement de l'outil,
 le dossier Demo/ a été créer.
 
-Dans se dossier il existe 4 fichiers.
+Dans ce dossier il existe 4 fichiers.
 
 - .htaccess
 - Animal.php
@@ -46,9 +47,55 @@ _.htaccess_
 
 Permet de rédiriger toutes le url vers le fichier d'entrer qui est `index.php`
 
-_Animal.php / User.php_
+- Animal.php
+- User.php
 
-C'est un fichier php qui conrrespond à une table dans la base de donnée.
+Ce sont des fichiers php qui contien une class conrrespond à une table dans la base de donnée.
+
+Parcouront le fichier User.php.
+
+```php
+<?php
+
+    namespace Demo;
+    
+    use ToolDataBase\Table; //Faire appel à la class table
+    use ToolDataBase\ModelData; //Faire appel à la class MadelData
+    /** 
+    * Cette class herite de la class ModelData et implemente l'interface Table pour pouvoir avoir une flexibilité pour 
+    * l'appel dans d'autre class.
+    */
+    class User extends ModelData implements Table
+    {
+    
+        protected $statement; // Elle est indispancable pour le bon fonctionnement de la class
+    
+        protected $table = "users"; //Cette variable doit contenire le nom de la table conrespondante dans la base de donnée
+    
+        /*
+        * Les champs ou les actions peuvent se produit
+        * C'est a dire les champ ou il peut avoir insertion, lecture, modification
+        */
+        protected $inserte = ['name', 'age'];
+    
+        /*
+        * Les valeur de c'est champs 
+        * Il est important que les valeur par defaut soit des "?"
+        */
+        protected $value = ' ? , ? ';
+        
+        /**
+        * Est la variable qui prend les table qui sont liée.
+        * Elle peut être de type array.
+        * S'il a plusieurs ou string si il l'en a une 
+        **/
+        protected $relation = 'animal'; 
+    
+
+}
+```
+
+
 
 _index.php_
 
@@ -87,3 +134,6 @@ Tous deux renvois le même resultat. il execute la requette
 
 La méthode `select()` prent en paramètre un `array` qui contient les colonnes sible
 Si le paramètre de `select()` n'est pas définir ou est null alors c'est toutes les colonnes qui sérrons selectionnées `*`.
+
+Pour l'instant cet outil utilise `MySQL`
+La prochaine version prandra en charge `MangoDB`.
